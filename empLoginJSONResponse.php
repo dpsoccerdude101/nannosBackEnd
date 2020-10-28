@@ -1,4 +1,7 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    exit;
+}
 session_start();
 require 'database.php';
 // Takes raw data from the request
