@@ -21,7 +21,7 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "UPDATE vendor SET Status='Inactive' WHERE VendorID='$VendorID'";
+$query = "UPDATE Vendor SET Status='Inactive' WHERE VendorID='$VendorID'";
 
 if($link->query($query) === TRUE) {
     $result = '{"result": "success"}';
