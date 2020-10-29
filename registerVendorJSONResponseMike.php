@@ -14,9 +14,12 @@ $VendorCode = (int)$data->VendorCode;
 $VendorName = $data->VendorName;
 $Address = $data->Address;
 $City = $data->City;
+$State = $data->State;
 $Zip = (int)$data->Zip;
 $Phone = (int)$data->Phone;
 $ContactName = $data->ContactName;
+$Password = $data->Password;
+$Status = "Active";
 
 $Error = "Error Inserting Data";
 
@@ -26,7 +29,8 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "INSERT INTO vendor (VendorCode, VendorName, Address, City, Zip, Phone, ContactName) VALUES('$VendorCode', '$VendorName', '$Address', '$City', '$Zip', '$Phone', '$ContactName')";
+$query = "INSERT INTO vendor (VendorCode, VendorName, Address, City, State, Zip, Phone, ContactName, Password, Status) 
+VALUES('$VendorCode', '$VendorName', '$Address', '$City', '$State', '$Zip', '$Phone', '$ContactName', '$Password', '$Status')";
 
 if($link->query($query) === TRUE) {
     $result = '{"result": "success"}';
