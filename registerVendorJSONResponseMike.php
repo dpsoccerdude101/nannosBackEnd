@@ -29,7 +29,7 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "INSERT INTO Vendor (VendorCode, VendorName, Address, City, State, Zip, Phone, ContactName, Password, Status) 
+$query = "INSERT INTO Vendor (VendorCode, VendorName, Address, City, State, ZIP, Phone, ContactPersonName, Password, Status) 
 VALUES('$VendorCode', '$VendorName', '$Address', '$City', '$State', '$Zip', '$Phone', '$ContactName', '$Password', '$Status')";
 
 if($link->query($query) === TRUE) {
