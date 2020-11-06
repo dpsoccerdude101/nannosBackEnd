@@ -24,7 +24,7 @@ $Status = "Active";
 $Error = "Error Inserting Data";
 
 
-$link = new mysqli("localhost", "root", "xXT@jyY2yg3P", "nannos_foods");
+$link = new mysqli("localhost", "root", "SsSMUeVf2nzj", "nannos_foods");
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
