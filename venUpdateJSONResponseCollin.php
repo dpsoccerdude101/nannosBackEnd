@@ -35,9 +35,8 @@ $query = "UPDATE Vendor SET VendorName='$VendorName',Address='$Address',City='$C
 if($link->query($query) === TRUE) {
     $result = '{"result": "success"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
-    echo json_encode($State);
     echo json_encode($result);
-    } else {
+} else {
     $result = '{"result": "failure"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($result);
