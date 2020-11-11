@@ -10,8 +10,15 @@ $json = file_get_contents('php://input');
 // Converts it into a PHP object
 $data = json_decode($json);
 
-$VendorID = (int)$data->VendorID;
-
+$StoreCode = (int)$data->StoreCode;
+$StoreName = $data->StoreName;
+$Address = $data->Address;
+$City = $data->City;
+$State = $data->State;
+$Zip = (int)$data->Zip;
+$Phone = (int)$data->Phone;
+$ManagerName = $data->ManagerName;
+$Status = "Active";
 
 $Error = "Error Inserting Data";
 
@@ -21,7 +28,8 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "UPDATE Vendor SET Status='Inactive' WHERE VendorID='$VendorID'";
+$query = "INSERT INTO RetailStore (StoreCode, StoreName, Address, City, State, ZIP, Phone, ManagerName, Status) 
+VALUES('$StoreCode', '$StoreName', '$Address', '$City', '$State', '$Zip', '$Phone', '$ManagerName', '$Status')";
 
 if($link->query($query) === TRUE) {
     $result = '{"result": "success"}';

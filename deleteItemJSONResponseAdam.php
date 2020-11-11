@@ -10,7 +10,7 @@ $json = file_get_contents('php://input');
 // Converts it into a PHP object
 $data = json_decode($json);
 
-$VendorID = (int)$data->VendorID;
+$ItemID = (int)$data->ItemID;
 
 
 $Error = "Error Inserting Data";
@@ -21,7 +21,7 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "UPDATE Vendor SET Status='Inactive' WHERE VendorID='$VendorID'";
+$query = "UPDATE InventoryItem SET Status='Inactive' WHERE ItemId='$ItemID'";
 
 if($link->query($query) === TRUE) {
     $result = '{"result": "success"}';
