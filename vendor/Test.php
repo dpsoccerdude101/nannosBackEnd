@@ -1,4 +1,6 @@
 <?php
-print("this is a test");
+function multiple($one, $two) {
+	return $one * $two;
+}
 ?>
 
