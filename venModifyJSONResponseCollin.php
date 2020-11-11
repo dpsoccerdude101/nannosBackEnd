@@ -23,11 +23,30 @@ if ($link->connect_error) {
 
 $query = "SELECT * FROM Vendor WHERE VendorID='$VendorID'";
 $results = mysqli_query($link, $query);
-$rows = mysqli_num_rows($results);
+$row = mysqli_fetch_assoc($results);
 
-if($rows >= 1) {
+if($row > 0) {
+    $vendor_array = array();
+    $vendor_array['data'] = array();
+
+    extract($row);
+
+    $vendor_item = array(
+        'VendorName' => $row['VendorName'],
+        'Address' => $row['Address'],
+        'City' => $row['City'],
+        'State' => $row['State'],
+        'ZIP' => $row['ZIP'],
+        'Phone' => $row['Phone'],
+        'ContactPersonName' => $row['ContactPersonName'],
+        'Password' => $row['Password'],
+        'Status' => $row['Status']
+    );
+
+    array_push($vendor_array['data'], $vendor_item);
+
+    echo json_encode($vendor_array);
     $result = '{"result": "success"}';
-   // $vendorinfo = '{"VendorID": "}'
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($result);
 } else {
