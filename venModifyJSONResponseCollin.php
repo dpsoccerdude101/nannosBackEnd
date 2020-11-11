@@ -16,7 +16,7 @@ $VendorID = (int)$data->VendorID;
 $Error = "Error Inserting Data";
 
 
-$link = new mysqli("localhost", "root", "xXT@jyY2yg3P", "nannos_foods");
+$link = new mysqli("localhost", "root", "SsSMUeVf2nzj", "nannos_foods");
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
@@ -27,7 +27,7 @@ $row = mysqli_fetch_assoc($results);
 
 if($row > 0) {
     $vendor_array = array();
-    $vendor_array['data'] = array();
+    //$vendor_array['data'] = array();
 
     extract($row);
 
@@ -36,19 +36,19 @@ if($row > 0) {
         'Address' => $row['Address'],
         'City' => $row['City'],
         'State' => $row['State'],
-        'ZIP' => $row['ZIP'],
-        'Phone' => $row['Phone'],
+        'ZIP' => (int)$row['ZIP'],
+        'Phone' => (int)$row['Phone'],
         'ContactPersonName' => $row['ContactPersonName'],
         'Password' => $row['Password'],
         'Status' => $row['Status']
     );
 
-    array_push($vendor_array['data'], $vendor_item);
+    //array_push($vendor_array['data'], $vendor_item);
 
-    echo json_encode($vendor_array);
+    //echo json_encode($vendor_item);
     $result = '{"result": "success"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
-    echo json_encode($result);
+    echo json_encode($vendor_item);
 } else {
     $result = '{"result": "failure"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
