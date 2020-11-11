@@ -18,7 +18,7 @@ $data = json_decode($json);
 $Error = "Incorrect username or password.";
 
 
-$link = mysqli_connect("localhost", "root", "xXT@jyY2yg3P", "nannos_foods");
+$link = mysqli_connect("localhost", "root", "SsSMUeVf2nzj", "nannos_foods");
 
 $query = "SELECT * FROM login";
 
