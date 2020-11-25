@@ -1,10 +1,9 @@
 <?php
 
-$a = 5;
-$b = 6;
 
 function addNums() {
-	console.log(5 + 6);
+	$result = 5 + 7;
+	return $result;
 }
 
 ?>
