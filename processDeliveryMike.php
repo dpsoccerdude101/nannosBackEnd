@@ -86,7 +86,7 @@ if($resultOfUpdate === TRUE) {
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($result);
 } else {
-    $result = '{"result": "failure"}"';
+    $result = '{"result": "failure"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($result);
     $_SESSION['error'] = $Error;
