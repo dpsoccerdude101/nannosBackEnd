@@ -7,6 +7,16 @@ require 'database.php';
 // Takes raw data from the request
 $json = file_get_contents('php://input');
 
+// Converts it into a PHP object
+$data = json_decode($json);
+
+$ItemId = (int)$data->ItemId;
+$StartDate = $data->StartDate;
+$EndDate = $data->EndDate;
+
+$new_start_date = date('Y-m-d', strtotime($StartDate));
+$new_end_date = date('Y-m-d', strtotime($EndDate));
+
 $Error = "Error Inserting Data";
 
 //Make a connection to the database.
@@ -16,7 +26,15 @@ if ($link->connect_error) {
 }
 
 //Run the query to find the vendor that you are looking for.
-$query = "SELECT * FROM InventoryItem, Inventory WHERE InventoryItem.ItemId = Inventory.ItemId AND InventoryItem.Status = 'Active'";
+$query = "SELECT CustomerPurchase.ItemId, RetailStore.StoreName, Customer.Name
+FROM CustomerPurchase, RetailStore, Customer
+WHERE CustomerPurchase.ItemId = '$ItemId' 
+AND RetailStore.StoreId = CustomerPurchase.StoreId
+AND CustomerPurchase.CustomerId = Customer.CustomerId
+AND CustomerPurchase.DateTimeOfPurchase > '$new_start_date'
+AND CustomerPurchase.DateTimeOfPurchase < '$new_end_date'";
+
+
 $results = mysqli_query($link, $query);
 if(mysqli_num_rows($results) > 0) {
     $all_items = array(array());
@@ -26,17 +44,8 @@ if(mysqli_num_rows($results) > 0) {
         extract($row);
         $item = array(
             'ItemId' => $row['ItemId'],
-            'Description' => $row['Description'],
-            'Size' => $row['Size'],
-            'Division' => $row['Division'],
-            'Department' => $row['Department'],
-            'Category' => $row['Category'],
-            'ItemCost' => $row['ItemCost'],
-            'ItemRetail' => $row['ItemRetail'],
-            'ImageFileName' => $row['ImageFileName'],
-            'VendorId' => $row['VendorId'],
-            'StoreId' => $row['StoreId'],
-            'Quantity' => $row['QuantityInStock']
+            'StoreName' => $row['StoreName'],
+            'CustomerName' => $row['Name']
         );
         $all_items[$i] = $item; 
         $i++;
@@ -45,7 +54,7 @@ if(mysqli_num_rows($results) > 0) {
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($all_items);
 } else {
-    $result = '{"result": "failure"}';
+    $result = '{"result": "none"}';
     header('Content-Type: application/json, Access-Control-Allow-Origin : *');
     echo json_encode($result);
     $_SESSION['error'] = $Error;

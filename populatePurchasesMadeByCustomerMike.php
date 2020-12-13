@@ -16,7 +16,7 @@ if ($link->connect_error) {
 }
 
 //Run the query to find the vendor that you are looking for.
-$query = "SELECT * FROM InventoryItem, Inventory WHERE InventoryItem.ItemId = Inventory.ItemId AND InventoryItem.Status = 'Active'";
+$query = "SELECT ItemId FROM InventoryItem WHERE 1 ORDER BY ItemId ASC";
 $results = mysqli_query($link, $query);
 if(mysqli_num_rows($results) > 0) {
     $all_items = array(array());
@@ -26,17 +26,6 @@ if(mysqli_num_rows($results) > 0) {
         extract($row);
         $item = array(
             'ItemId' => $row['ItemId'],
-            'Description' => $row['Description'],
-            'Size' => $row['Size'],
-            'Division' => $row['Division'],
-            'Department' => $row['Department'],
-            'Category' => $row['Category'],
-            'ItemCost' => $row['ItemCost'],
-            'ItemRetail' => $row['ItemRetail'],
-            'ImageFileName' => $row['ImageFileName'],
-            'VendorId' => $row['VendorId'],
-            'StoreId' => $row['StoreId'],
-            'Quantity' => $row['QuantityInStock']
         );
         $all_items[$i] = $item; 
         $i++;

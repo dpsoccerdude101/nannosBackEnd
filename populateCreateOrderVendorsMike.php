@@ -16,7 +16,10 @@ if ($link->connect_error) {
 }
 
 //Run the query to find the vendor that you are looking for.
-$query = "SELECT * FROM InventoryItem, Inventory WHERE InventoryItem.ItemId = Inventory.ItemId AND InventoryItem.Status = 'Active'";
+$query = "SELECT DISTINCT Vendor.VendorID, Vendor.VendorName
+FROM InventoryItem, Vendor WHERE
+Vendor.VendorID = InventoryItem.VendorId
+AND Vendor.Status = 'Active'";
 $results = mysqli_query($link, $query);
 if(mysqli_num_rows($results) > 0) {
     $all_items = array(array());
@@ -25,18 +28,8 @@ if(mysqli_num_rows($results) > 0) {
         $item = array();
         extract($row);
         $item = array(
-            'ItemId' => $row['ItemId'],
-            'Description' => $row['Description'],
-            'Size' => $row['Size'],
-            'Division' => $row['Division'],
-            'Department' => $row['Department'],
-            'Category' => $row['Category'],
-            'ItemCost' => $row['ItemCost'],
-            'ItemRetail' => $row['ItemRetail'],
-            'ImageFileName' => $row['ImageFileName'],
-            'VendorId' => $row['VendorId'],
-            'StoreId' => $row['StoreId'],
-            'Quantity' => $row['QuantityInStock']
+            'VendorID' => $row['VendorID'],
+            'VendorName' => $row['VendorName']
         );
         $all_items[$i] = $item; 
         $i++;
