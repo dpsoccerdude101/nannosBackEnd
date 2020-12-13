@@ -7,6 +7,10 @@ require 'database.php';
 // Takes raw data from the request
 $json = file_get_contents('php://input');
 
+$data = json_decode($json);
+
+$threshold = $data->QuantityInStock;
+
 $Error = "Error Inserting Data";
 
 //Make a connection to the database.
@@ -16,7 +20,7 @@ if ($link->connect_error) {
 }
 
 //Run the query to find the vendor that you are looking for.
-$query = "SELECT * FROM InventoryItem WHERE 1";
+$query = "SELECT * FROM Inventory WHERE QuantityInStock <= '$threshold' ORDER BY QuantityInStock ASC";
 $results = mysqli_query($link, $query);
 if(mysqli_num_rows($results) > 0) {
     $all_items = array(array());
@@ -25,17 +29,10 @@ if(mysqli_num_rows($results) > 0) {
         $item = array();
         extract($row);
         $item = array(
+            'InventoryId' => $row['InventoryId'],
+            'StoreId' => $row['StoreId'],
             'ItemId' => $row['ItemId'],
-            'Description' => $row['Description'],
-            'Size' => $row['Size'],
-            'Division' => $row['Division'],
-            'Department' => $row['Department'],
-            'Category' => $row['Category'],
-            'ItemCost' => $row['ItemCost'],
-            'ItemRetail' => $row['ItemRetail'],
-            'ImageFileName' => $row['ImageFileName'],
-            'VendorId' => $row['VendorId'],
-           'Status' => $row['Status']
+            'QuantityInStock' => $row['QuantityInStock']
         );
         $all_items[$i] = $item; 
         $i++;
