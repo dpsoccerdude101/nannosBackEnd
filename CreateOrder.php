@@ -37,7 +37,6 @@ if ($resultOfInsert != FALSE) {
         VALUES('$last_id', '$ItemId', '$quantity')";
         if(mysqli_query($link, $query)){
             $resultOfInsert = TRUE;
-            continue;
         }
         else {
             $resultOfInsert = FALSE;
