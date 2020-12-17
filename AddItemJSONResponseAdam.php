@@ -28,8 +28,8 @@ if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
 
-$query = "INSERT INTO InventoryItem (Description, Size, Division, Department, Category, ItemCost, ItemRetail, ImageFileName, VendorId) 
-VALUES('$Description', '$Size', '$Division', '$Department', '$Category', '$ItemCost', '$ItemRetail', '$ImageFileName', '$VenId')";
+$query = "INSERT INTO InventoryItem (Description, Size, Division, Department, Category, ItemCost, ItemRetail, ImageFileName, VendorId, Status)
+VALUES('$Description', '$Size', '$Division', '$Department', '$Category', '$ItemCost', '$ItemRetail', '$ImageFileName', '$VenId', 'Active')";
 
 
 if($link->query($query) === TRUE) {
