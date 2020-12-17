@@ -19,7 +19,9 @@ if ($link->connect_error) {
 $query = "SELECT DISTINCT Vendor.VendorID, Vendor.VendorName
 FROM InventoryItem, Vendor WHERE
 Vendor.VendorID = InventoryItem.VendorId
-AND Vendor.Status = 'Active'";
+AND Vendor.Status = 'Active'
+AND EXISTS
+(SELECT VendorId FROM InventoryItem WHERE VendorId = Vendor.VendorID AND InventoryItem.Status = 'Active')";
 $results = mysqli_query($link, $query);
 if(mysqli_num_rows($results) > 0) {
     $all_items = array(array());
